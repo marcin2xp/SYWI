@@ -1,9 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Time;
-import java.util.Arrays;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 import orbital.logic.imp.Formula;
@@ -13,9 +12,8 @@ public class Main {
 	private static String[][] valuesEatable; //(X alfa) valuesEatable[i][0] is the favorable decision value d2
 	private static String[][] valuesPoison; //(X beta)
 	
-	private static String[][] reductTable; //Tabela po wykonaniu znajdowaniu reduktow
-	
-	private static Map<String, Integer> countReductMap;
+	private static String[][] reductTable; //Tabela po wykonaniu znajdowaniu reduktow	
+	private static Map <String,Integer> countReductMap = new HashMap <String,Integer> ();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -35,7 +33,10 @@ public class Main {
 		findReduct(valuesEatable, valuesPoison);
 		//printTable(reductTable);
 		removeSpace(reductTable);
-		printTable(reductTable);
+		//printTable(reductTable);
+		countReduct(reductTable);
+		//System.out.print(countReductMap);
+		findMaxReductValue(countReductMap);
 		//System.out.println(reductTable[25][2]);
 		//CNFtoDNF();
 
@@ -61,7 +62,7 @@ public class Main {
 	public static void printTable(String[][] values){
 		for(int i=0; i< values.length; i++){
 		    for(int j=0; j< values[i].length; j++){
-		    	System.out.println("\n------------------kolumna "+ j + " wiersz "+ i);
+		    	System.out.println("\n----kolumna "+ j + " wiersz "+ i);
 		    	System.out.print(values[i][j]);		    	
 		    }		
 		}
@@ -89,22 +90,8 @@ public class Main {
 	public static void CNFtoDNF(){
 		ClassicalLogic.Utilities cl ;		
 		Formula f = null;
-	}
-	
-	public static void countReduct(){
+	}	
 
-//		for (int i = 0; i < reductTable.length; i++) {
-//			for (int j = 0; j < reductTable[i].length; j++) {
-//				for (int k = 0; k < countReductMap.size(); k++) {
-//					if (countReductMap.get(k).equals(reductTable[i][j])){
-//						countReductMap.						
-//					}else{
-//						countReductMap.put(reductTable[i][j], 1);						
-//					}
-//				}							
-//			}			
-//		}		
-	}
 	//Wiem ze nie ladnie to wyglada
 	public static void removeSpace(String[][] value){	
 		for(int i = 0; i<value.length; i++){
@@ -124,18 +111,53 @@ public class Main {
 				value[i][j] = value[i][j].replace("            ", " ");
 				value[i][j] = value[i][j].replace("             ", " ");
 				value[i][j] = value[i][j].replace("               ", " ");
-				value[i][j] = value[i][j].replace("  ", " ");
-		
-			}
-	       
+				value[i][j] = value[i][j].replace("  ", " ");		
+			}	       
 		}
 	}
+	
+	public static void countReduct(String[][] value){
+		String singleString;
+		String[] singleWord;
+		int reductCount = 0;
+		for (int i = 0; i < value.length; i++) {
+			for (int j = 0; j < value.length; j++) {
+				singleString = value[i][j];
+				singleWord = singleString.split(" ");
+				for (int k = 0; k < singleWord.length; k++) {
+					reductCount++;					
+					Integer licznik =(Integer) countReductMap.get(singleWord[k]);
+					if(licznik == null){
+					licznik = new Integer(0);
+					}
+					licznik ++;
+					countReductMap.put(singleWord[k],licznik);					
+				}			
+			}
+		}
+		System.out.println("Liczna reduktów to: "+reductCount);
+		
+	}
+	
+	public static void findMaxReductValue(Map<String, Integer> map){
+		int max = 0;
+		String key = "";
+		double returnMax;
+		for (Map.Entry<String, Integer> object : map.entrySet()) {             
+                object.getKey();
+                object.getValue();
+                if(object.getValue()>max){
+                	max = object.getValue();
+                	key = object.getKey();
+                }            
+        }
+		returnMax = (double)max;
+		returnMax = (returnMax/(61*61))*100;
+		returnMax=new BigDecimal(returnMax).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		
+		System.out.println("------------------------------------------------");
+		System.out.println("Najwiêkszy redukt ma wagê: "+ key + " "+ returnMax+"%" );
+		System.out.println("------------------------------------------------");
+		
+	}
 }
-
-
-
-
-
-
-
-
