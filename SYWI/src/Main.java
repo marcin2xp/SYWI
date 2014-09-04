@@ -28,18 +28,12 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//printTable(valuesEatable);
-		//printTable(valuesPoison);
 		findReduct(valuesEatable, valuesPoison);
-		//printTable(reductTable);
 		removeSpace(reductTable);
-		//printTable(reductTable);
-		countReduct(reductTable);
-		//System.out.print(countReductMap);
+		countReduct(reductTable);		
 		findMaxReductValue(countReductMap);
-		//System.out.println(reductTable[25][2]);
-		//CNFtoDNF();
-
+		
+		//System.out.print(countReductMap);
 	}
 	
 	public static void readFile(String filePath, String[][] values) throws IOException {
@@ -135,8 +129,7 @@ public class Main {
 				}			
 			}
 		}
-		System.out.println("Liczna reduktów to: "+reductCount);
-		
+		System.out.println("Liczna reduktów to: "+reductCount);		
 	}
 	
 	public static void findMaxReductValue(Map<String, Integer> map){
