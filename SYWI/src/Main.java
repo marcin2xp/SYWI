@@ -7,6 +7,10 @@ import java.util.Map;
 
 import orbital.logic.imp.Formula;
 import orbital.moon.logic.*;
+
+//Projekt: SYWI 2014
+//Autor: Marcin Wnuk. PW EiTI
+
 public class Main {
 	//Dane wykorzystane w programie posiadaja wszystkie wartosci jako flexible oraz jedna wartosc typu decision.
 	private static String[][] valuesEatable; //(X alfa) valuesEatable[i][0] is the favorable decision value d2
@@ -128,7 +132,7 @@ public class Main {
 				}			
 			}
 		}
-		System.out.println("Liczna reduktów to: "+reductCount);		
+		System.out.println("Ilosc reduktow to: "+reductCount);		
 	}
 	
 	public static void findMaxReductValue(Map<String, Integer> map){
@@ -148,7 +152,7 @@ public class Main {
 		returnMax=new BigDecimal(returnMax).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 		
 		System.out.println("------------------------------------------------");
-		System.out.println("Najwiêkszy redukt ma wagê: "+ key + " "+ returnMax+"%" );
+		System.out.println("Redukt z najwieksza waga to: "+ key + " ("+ returnMax+"%)" );
 		System.out.println("------------------------------------------------");
 		
 	}
