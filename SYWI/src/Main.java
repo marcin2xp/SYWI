@@ -31,8 +31,7 @@ public class Main {
 		findReduct(valuesEatable, valuesPoison);
 		removeSpace(reductTable);
 		countReduct(reductTable);		
-		findMaxReductValue(countReductMap);
-		
+		findMaxReductValue(countReductMap);		
 		//System.out.print(countReductMap);
 	}
 	
